@@ -1,0 +1,11 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Viga", sans-serif;
+  background: #89b308;
+  background: -webkit-radial-gradient(bottom left, #89b308, #3d94dd);
+  background: -moz-radial-gradient(bottom left, #89b308, #3d94dd);
+  background: radial-gradient(bottom left, #89b308, #3d94dd);
+}
