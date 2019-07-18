@@ -1,11 +1,12 @@
 <script>
   import Switch from "./Switch.svelte";
-  let timerDisplay = "25:00";
+  let timerDisplay = "5:00";
   let timerLeftDisplay = "-";
   let isPause = true;
-  let initialTime = 25 * 60;
+  let initialTime = 5 * 60;
   let countdown;
   let secondsLeft = 0;
+  let timeBlock = 5
   const audio = new Audio("./sound/this-guitar.mp3");
   const vibrate =
     navigator.vibrate ||
@@ -16,21 +17,10 @@
   let isSound = true;
   let isVibrate = false;
 
-  let currentTask = "";
-  let taskList = [];
-
-  function addTask(event) {
-    if (currentTask.length > 0 && event.which === 13) {
-      taskList = [...taskList, currentTask];
-      currentTask = "";
-    }
-  }
-
   function endCounter() {
     if (isSound) {
       audio.play();
     }
-
     if (isVibrate) {
       navigator.vibrate(500);
     }
@@ -50,7 +40,6 @@
           secondsLeft = 0;
           return;
         }
-
         displayTimeLeft(secondsLeft);
       }
     }, 1000);
@@ -81,7 +70,6 @@
     } else if (toggle.name === "isVibrate") {
       isVibrate = !toggle.val;
       if (isVibrate) {
-        // console.log('is vibrating')
         navigator.vibrate(500);
       }
     } else console.log("not found");
@@ -118,7 +106,6 @@
         isPause = true;
         clearInterval(countdown);
         secondsLeft = 0;
-        timerDisplay = "25:00";
         timerLeftDisplay = "-";
         document.title = "Timer";
         break;
@@ -127,6 +114,31 @@
         throw new Error("No type found!");
     }
   };
+
+  function blockOptions(block){
+    switch (block) {
+      case 5:
+        setState('restart');
+        timeBlock = 5;
+        timerDisplay = "5:00";
+        initialTime = 5 * 60;
+        break;
+    
+      case 10:
+        setState('restart');
+        timeBlock = 10;
+        timerDisplay = "10:00";
+        initialTime = 10 * 60;
+        break;
+    
+      case 25:
+        setState('restart');
+        timeBlock = 25;
+        timerDisplay = "25:00";
+        initialTime = 25 * 60;
+        break;
+    }
+  }
 </script>
 
 <style>
@@ -149,6 +161,7 @@
   .time {
     text-align: center;
     font-size: 4em;
+    margin: 0.6em 0;
   }
   .time--left {
     text-align: center;
@@ -159,6 +172,7 @@
     margin-bottom: 1.5em;
   }
   button {
+    color: #fff;
     padding: 1em 2em;
     border-radius: 5px;
     background: none;
@@ -169,32 +183,35 @@
     background-color: rgba(157, 202, 238, 0.5);
     cursor: inherit;
   }
-  .task {
-    width: 100%;
-    background: none;
-    padding: 0.5em;
-    border-radius: 5px;
-    border: #fff solid 1px;
-    color: #fff;
+
+  .note{
     text-align: center;
-    font-size: 1em;
-    font-family: "Viga", sans-serif;
+    font-style: italic;
+    font-size: 0.8em;
   }
-  .task__list {
-    border-radius: 5px;
-    border: #fff solid 1px;
-    font-size: 1.2em;
+  .block{
+    font-style: italic;
+    font-size: 0.8em;
+  }
+
+  .small{
+    padding: 0.5em 1.2em;
+  }
+  .block--group{
+    display: flex;
+    justify-content: space-between
   }
 </style>
 
 <body>
   <div class="container">
+    <div class="block--group">
+      <p class="block">Block system:</p>
+      <button on:click={() => blockOptions(5)} disabled={!isPause} class="small">5</button>
+      <button on:click={() => blockOptions(10)} disabled={!isPause} class="small">10</button>
+      <button on:click={() => blockOptions(25)} disabled={!isPause} class="small">25</button>
+    </div>
     <h2 class="time">{timerDisplay}</h2>
-    <input
-      class="task"
-      type="text"
-      bind:value={currentTask}
-      on:keyup={addTask} />
     <h3 class="time--left">{timerLeftDisplay}</h3>
     <div class="controls">
       <Switch
@@ -219,17 +236,10 @@
         <i class="fas fa-pause" />
       </button>
       <button
-        on:click={() => setState('restart')}
+        on:click={() => {setState('restart'), blockOptions(timeBlock)}}
         disabled={secondsLeft !== 0 && isPause === false}>
         <i class="fas fa-redo" />
       </button>
-    </div>
-    <div class="task__list">
-      <ul>
-        {#each taskList as task}
-          <li>{task}</li>
-        {/each}
-      </ul>
     </div>
   </div>
 </body>
