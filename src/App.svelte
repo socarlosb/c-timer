@@ -207,9 +207,9 @@
   <div class="container">
     <div class="block--group">
       <p class="block">Block system:</p>
-      <button on:click={() => blockOptions(5)} disabled={!isPause} class="small">5</button>
-      <button on:click={() => blockOptions(10)} disabled={!isPause} class="small">10</button>
-      <button on:click={() => blockOptions(25)} disabled={!isPause} class="small">25</button>
+      <button on:click={() => blockOptions(5)} disabled={!isPause || timeBlock === 5} class="small">5</button>
+      <button on:click={() => blockOptions(10)} disabled={!isPause|| timeBlock === 10} class="small">10</button>
+      <button on:click={() => blockOptions(25)} disabled={!isPause|| timeBlock === 25} class="small">25</button>
     </div>
     <h2 class="time">{timerDisplay}</h2>
     <h3 class="time--left">{timerLeftDisplay}</h3>
