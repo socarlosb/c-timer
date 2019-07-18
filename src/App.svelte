@@ -9,7 +9,6 @@
   const audio = new Audio("./sound/this-guitar.mp3");
   const vibrate =
     navigator.vibrate ||
-    navigator.vibrate ||
     navigator.webkitVibrate ||
     navigator.mozVibrate ||
     navigator.msVibrate;
@@ -17,19 +16,26 @@
   let isSound = true;
   let isVibrate = false;
 
+  let currentTask = "";
+  let taskList = [];
+
+  function addTask(event) {
+    if (currentTask.length > 0 && event.which === 13) {
+      taskList = [...taskList, currentTask];
+      currentTask = "";
+    }
+  }
+
   function endCounter() {
     if (isSound) {
-      console.log('is playing sound')
       audio.play();
     }
 
     if (isVibrate) {
-      console.log('is vibrating')
       navigator.vibrate(500);
     }
   }
   function timer(seconds) {
-    // console.log("isSound", isSound);
     const now = Date.now();
     const then = now + seconds * 1000;
     displayTimeLeft(seconds);
@@ -67,14 +73,17 @@
     timerLeftDisplay = `Ends at ${hour}:${minutes < 10 ? "0" : ""}${minutes}`;
   }
   function handleToggle(toggle) {
-    // console.log("in handleToggle");
-    // console.log("toggle", toggle);
     if (toggle.name === "isSound") {
       isSound = !toggle.val;
-      // console.log("toggle.name", isSound);
+      if (isSound) {
+        audio.play();
+      }
     } else if (toggle.name === "isVibrate") {
       isVibrate = !toggle.val;
-      // console.log("toggle.name", isVibrate);
+      if (isVibrate) {
+        // console.log('is vibrating')
+        navigator.vibrate(500);
+      }
     } else console.log("not found");
   }
 
@@ -143,7 +152,6 @@
   }
   .time--left {
     text-align: center;
-    font-size: 2em;
   }
   .controls {
     display: flex;
@@ -161,17 +169,46 @@
     background-color: rgba(157, 202, 238, 0.5);
     cursor: inherit;
   }
+  .task {
+    width: 100%;
+    background: none;
+    padding: 0.5em;
+    border-radius: 5px;
+    border: #fff solid 1px;
+    color: #fff;
+    text-align: center;
+    font-size: 1em;
+    font-family: "Viga", sans-serif;
+  }
+  .task__list {
+    border-radius: 5px;
+    border: #fff solid 1px;
+    font-size: 1.2em;
+  }
 </style>
 
 <body>
   <div class="container">
     <h2 class="time">{timerDisplay}</h2>
-    <h2 class="time--left">{timerLeftDisplay}</h2>
+    <input
+      class="task"
+      type="text"
+      bind:value={currentTask}
+      on:keyup={addTask} />
+    <h3 class="time--left">{timerLeftDisplay}</h3>
     <div class="controls">
-      <Switch toggle={isSound} change={() => handleToggle({ name: 'isSound', val: isSound })}>Sound</Switch>
+      <Switch
+        toggle={isSound}
+        change={() => handleToggle({ name: 'isSound', val: isSound })}>
+        Sound
+      </Switch>
 
       {#if vibrate}
-        <Switch toggle={isVibrate} change={() => handleToggle({ name: 'isVibrate', val: isVibrate })}>Vibrate</Switch>
+        <Switch
+          toggle={isVibrate}
+          change={() => handleToggle({ name: 'isVibrate', val: isVibrate })}>
+          Vibrate
+        </Switch>
       {/if}
     </div>
     <div class="controls">
@@ -186,6 +223,13 @@
         disabled={secondsLeft !== 0 && isPause === false}>
         <i class="fas fa-redo" />
       </button>
+    </div>
+    <div class="task__list">
+      <ul>
+        {#each taskList as task}
+          <li>{task}</li>
+        {/each}
+      </ul>
     </div>
   </div>
 </body>
