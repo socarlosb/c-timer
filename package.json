@@ -1,5 +1,5 @@
 {
-  "name": "svelte-app",
+  "name": "pomodoro-app",
   "version": "1.0.0",
   "devDependencies": {
     "cross-env": "^5.2.0",
@@ -17,8 +17,7 @@
     "build": "cross-env NODE_ENV=production webpack",
     "dev": "webpack-dev-server --content-base public"
   },
-  "readme": "ERROR: No README data found!",
-  "_id": "svelte-app@1.0.0",
+  "readme": "A simple Pomodoro app with different time blocks",
   "dependencies": {
     "express": "^4.16.4"
   }
