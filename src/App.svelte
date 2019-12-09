@@ -1,12 +1,12 @@
 <script>
   import Switch from "./Switch.svelte";
-  let timerDisplay = "5:00";
+  let timerDisplay = "10:00";
   let timerLeftDisplay = "-";
   let isPause = true;
-  let initialTime = 5 * 60;
+  let initialTime = 10 * 60;
   let countdown;
   let secondsLeft = 0;
-  let timeBlock = 5
+  let timeBlock = 10
   const audio = new Audio("./sound/this-guitar.mp3");
   const vibrate =
     navigator.vibrate ||
@@ -182,12 +182,6 @@
   button:disabled {
     background-color: rgba(157, 202, 238, 0.5);
     cursor: inherit;
-  }
-
-  .note{
-    text-align: center;
-    font-style: italic;
-    font-size: 0.8em;
   }
   .block{
     font-style: italic;
