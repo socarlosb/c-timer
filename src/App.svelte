@@ -6,7 +6,7 @@
   let initialTime = 10 * 60;
   let countdown;
   let secondsLeft = 0;
-  let timeBlock = 10
+  let timeBlock = 10;
   const audio = new Audio("./sound/this-guitar.mp3");
   const vibrate =
     navigator.vibrate ||
@@ -115,27 +115,41 @@
     }
   };
 
-  function blockOptions(block){
+  function blockOptions(block) {
     switch (block) {
       case 5:
-        setState('restart');
+        setState("restart");
         timeBlock = 5;
         timerDisplay = "5:00";
         initialTime = 5 * 60;
         break;
-    
+
       case 10:
-        setState('restart');
+        setState("restart");
         timeBlock = 10;
         timerDisplay = "10:00";
         initialTime = 10 * 60;
         break;
-    
+
       case 25:
-        setState('restart');
+        setState("restart");
         timeBlock = 25;
         timerDisplay = "25:00";
         initialTime = 25 * 60;
+        break;
+
+      case 30:
+        setState("restart");
+        timeBlock = 30;
+        timerDisplay = "30:00";
+        initialTime = 30 * 60;
+        break;
+
+      case 45:
+        setState("restart");
+        timeBlock = 45;
+        timerDisplay = "45:00";
+        initialTime = 45 * 60;
         break;
     }
   }
@@ -183,17 +197,19 @@
     background-color: rgba(157, 202, 238, 0.5);
     cursor: inherit;
   }
-  .block{
+  .block {
     font-style: italic;
     font-size: 0.8em;
+    margin-right: 1em;
   }
 
-  .small{
+  .small {
     padding: 0.5em 1.2em;
+    margin: 0.2em;
   }
-  .block--group{
+  .block--group {
     display: flex;
-    justify-content: space-between
+    justify-content: space-between;
   }
 </style>
 
@@ -201,9 +217,36 @@
   <div class="container">
     <div class="block--group">
       <p class="block">Block system:</p>
-      <button on:click={() => blockOptions(5)} disabled={!isPause || timeBlock === 5} class="small">5</button>
-      <button on:click={() => blockOptions(10)} disabled={!isPause|| timeBlock === 10} class="small">10</button>
-      <button on:click={() => blockOptions(25)} disabled={!isPause|| timeBlock === 25} class="small">25</button>
+      <button
+        on:click={() => blockOptions(5)}
+        disabled={!isPause || timeBlock === 5}
+        class="small">
+        05
+      </button>
+      <button
+        on:click={() => blockOptions(10)}
+        disabled={!isPause || timeBlock === 10}
+        class="small">
+        10
+      </button>
+      <button
+        on:click={() => blockOptions(25)}
+        disabled={!isPause || timeBlock === 25}
+        class="small">
+        25
+      </button>
+      <button
+        on:click={() => blockOptions(30)}
+        disabled={!isPause || timeBlock === 30}
+        class="small">
+        30
+      </button>
+      <button
+        on:click={() => blockOptions(45)}
+        disabled={!isPause || timeBlock === 45}
+        class="small">
+        45
+      </button>
     </div>
     <h2 class="time">{timerDisplay}</h2>
     <h3 class="time--left">{timerLeftDisplay}</h3>
@@ -230,7 +273,9 @@
         <i class="fas fa-pause" />
       </button>
       <button
-        on:click={() => {setState('restart'), blockOptions(timeBlock)}}
+        on:click={() => {
+          setState('restart'), blockOptions(timeBlock);
+        }}
         disabled={secondsLeft !== 0 && isPause === false}>
         <i class="fas fa-redo" />
       </button>
