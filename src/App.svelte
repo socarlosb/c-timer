@@ -1,12 +1,12 @@
 <script>
   import Switch from "./Switch.svelte";
-  let timerDisplay = "10:00";
+  let timerDisplay = "15:00";
   let timerLeftDisplay = "-";
   let isPause = true;
-  let initialTime = 10 * 60;
+  let initialTime = 15 * 60;
   let countdown;
   let secondsLeft = 0;
-  let timeBlock = 10;
+  let timeBlock = 15;
   const audio = new Audio("./sound/this-guitar.mp3");
   const vibrate =
     navigator.vibrate ||
