@@ -131,6 +131,13 @@
         initialTime = 10 * 60;
         break;
 
+      case 15:
+        setState("restart");
+        timeBlock = 15;
+        timerDisplay = "15:00";
+        initialTime = 15 * 60;
+        break;
+
       case 25:
         setState("restart");
         timeBlock = 25;
@@ -143,13 +150,6 @@
         timeBlock = 30;
         timerDisplay = "30:00";
         initialTime = 30 * 60;
-        break;
-
-      case 45:
-        setState("restart");
-        timeBlock = 45;
-        timerDisplay = "45:00";
-        initialTime = 45 * 60;
         break;
     }
   }
@@ -230,6 +230,12 @@
         10
       </button>
       <button
+        on:click={() => blockOptions(15)}
+        disabled={!isPause || timeBlock === 15}
+        class="small">
+        15
+      </button>
+      <button
         on:click={() => blockOptions(25)}
         disabled={!isPause || timeBlock === 25}
         class="small">
@@ -240,12 +246,6 @@
         disabled={!isPause || timeBlock === 30}
         class="small">
         30
-      </button>
-      <button
-        on:click={() => blockOptions(45)}
-        disabled={!isPause || timeBlock === 45}
-        class="small">
-        45
       </button>
     </div>
     <h2 class="time">{timerDisplay}</h2>
