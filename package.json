@@ -7,7 +7,7 @@
   },
   "readme": "A simple Pomodoro app with different time blocks",
   "dependencies": {
-    "express": "^4.19.2"
+    "express": "^4.21.0"
   },
   "devDependencies": {
     "cross-env": "^7.0.3",
