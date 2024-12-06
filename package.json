@@ -7,13 +7,13 @@
   },
   "readme": "A simple Pomodoro app with different time blocks",
   "dependencies": {
-    "express": "^4.21.1"
+    "express": "^4.21.2"
   },
   "devDependencies": {
     "cross-env": "^7.0.3",
     "css-loader": "^6.10.0",
     "mini-css-extract-plugin": "^2.8.0",
-    "serve": "^14.2.1",
+    "serve": "^14.2.4",
     "style-loader": "^3.3.4",
     "svelte": "^4.2.11",
     "svelte-loader": "^3.1.9",
