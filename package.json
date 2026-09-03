@@ -7,7 +7,7 @@
   },
   "readme": "A simple Pomodoro app with different time blocks",
   "dependencies": {
-    "express": "^4.22.2"
+    "express": "^5.2.1"
   },
   "devDependencies": {
     "cross-env": "^7.0.3",
@@ -19,6 +19,6 @@
     "svelte-loader": "^3.2.4",
     "webpack": "^5.105.0",
     "webpack-cli": "^5.1.4",
-    "webpack-dev-server": "^5.2.2"
+    "webpack-dev-server": "^6.0.0"
   }
 }
